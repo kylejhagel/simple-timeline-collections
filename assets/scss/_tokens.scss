@@ -1,0 +1,58 @@
+// Simple Timeline Collections SCSS design tokens
+// These values intentionally map to WordPress theme preset variables first.
+// Override the CSS custom properties on .stc-timeline-wrap from a theme or block style as needed.
+
+$stc-max-width: 100%;
+$stc-marker-size: 1rem;
+$stc-line-width: 2px;
+$stc-radius-card: .75rem;
+$stc-mobile-breakpoint: 640px;
+
+$stc-spacing-timeline-inline: clamp(2rem, 5vw, 4rem);
+$stc-spacing-gap: clamp(1rem, 2.5vw, 2rem);
+$stc-spacing-card: clamp(1rem, 2.5vw, 1.5rem);
+
+$stc-theme-vars: (
+  accent: var(--wp--preset--color--primary, var(--wp--preset--color--accent, currentColor)),
+  text: var(--wp--preset--color--foreground, currentColor),
+  surface: var(--wp--preset--color--background, transparent),
+  border: color-mix(in srgb, currentColor 28%, transparent),
+  muted: color-mix(in srgb, currentColor 72%, transparent)
+);
+
+@mixin timeline-wrap-custom-properties {
+  @each $name, $value in $stc-theme-vars {
+    --stc-#{$name}: #{$value};
+  }
+
+  --stc-event-item-before-color: var(--stc-accent);
+  --stc-event-item-current-color: var(--stc-event-item-before-color);
+
+  --stc-card-background-color: var(--stc-surface);
+  --stc-card-background-color: color-mix(in srgb, var(--stc-surface) 88%, transparent);
+  --stc-rail-color: var(--stc-border);
+
+  --stc-marker-size: #{$stc-marker-size};
+  --stc-line-width: #{$stc-line-width};
+  --stc-marker-offset-top: 1rem;
+  --stc-gap: clamp(1.75rem, 4vw, 2.75rem);
+  --stc-alternate-card-gap: 100px;
+  --stc-rail-space: clamp(3rem, 7vw, 5rem);
+  --stc-mobile-gutter: 2.25rem;
+  --stc-mobile-axis-x: calc(var(--stc-mobile-gutter) / 2);
+  --stc-card-padding: #{$stc-spacing-card};
+  --stc-rail-dash-size: .375rem;
+  --stc-rail-dash-gap: .375rem;
+}
+
+@mixin focus-ring {
+  outline: 3px solid var(--stc-accent);
+  outline-offset: 3px;
+}
+
+@mixin reduced-motion-reset {
+  scroll-behavior: auto !important;
+  transition-duration: .01ms !important;
+  animation-duration: .01ms !important;
+  animation-iteration-count: 1 !important;
+}

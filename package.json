@@ -1,0 +1,14 @@
+{
+  "name": "simple-timeline-collections",
+  "version": "1.9.4",
+  "private": true,
+  "license": "GPL-2.0-or-later",
+  "description": "SCSS source workflow for the Simple Timeline Collections WordPress plugin.",
+  "scripts": {
+    "build:css": "sass assets/scss/simple-timeline-collections.scss assets/css/simple-timeline-collections.css --style=expanded --no-source-map && sass assets/scss/simple-timeline-collections-admin.scss assets/css/simple-timeline-collections-admin.css --style=expanded --no-source-map",
+    "watch:css": "sass --watch assets/scss:assets/css --style=expanded --no-source-map"
+  },
+  "devDependencies": {
+    "sass": "^1.77.0"
+  }
+}

@@ -1,0 +1,444 @@
+/*! Simple Timeline Collections front-end styles. Version 1.9.4 | Source: assets/scss/simple-timeline-collections.scss */
+@use 'tokens' as *;
+
+.stc-timeline-wrap {
+  @include timeline-wrap-custom-properties;
+
+  inline-size: 100%;
+  max-width: $stc-max-width;
+  margin-inline: auto;
+}
+
+.stc-timeline-heading {
+  display: flex;
+  inline-size: 100%;
+}
+
+.stc-timeline-wrap--title-align-left {
+  .stc-timeline-heading {
+    justify-content: flex-start;
+    text-align: start;
+  }
+}
+
+.stc-timeline-wrap--title-align-center {
+  .stc-timeline-heading {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+.stc-timeline-wrap--title-align-right {
+  .stc-timeline-heading {
+    justify-content: flex-end;
+    text-align: end;
+  }
+}
+
+.stc-timeline {
+  position: relative;
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stc-timeline__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--stc-rail-space) minmax(0, 1fr);
+  margin: 0;
+  padding-block-end: var(--stc-gap);
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    inset-inline-start: var(--stc-axis-x, 50%);
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  &::before {
+    inline-size: var(--stc-marker-size);
+    block-size: var(--stc-marker-size);
+    inset-block-start: var(--stc-marker-offset-top);
+    box-sizing: border-box;
+    border: 2px solid var(--stc-event-item-before-color);
+    border-radius: 999px;
+    background: var(--stc-event-item-before-color);
+    box-shadow: 0 0 0 0.25rem transparent;
+    box-shadow:
+      0 0 0 0.25rem color-mix(
+        in srgb,
+        var(--stc-event-item-before-color) 22%,
+        transparent
+      );
+    z-index: 2;
+  }
+
+  &::after {
+    inline-size: var(--stc-line-width);
+    inset-block-start: 0;
+    inset-block-end: 0;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      var(--stc-rail-color) 0 var(--stc-rail-dash-size),
+      transparent var(--stc-rail-dash-size) calc(var(--stc-rail-dash-size) + var(--stc-rail-dash-gap))
+    );
+    z-index: 1;
+  }
+
+  &:first-child::after {
+    inset-block-start: calc(var(--stc-marker-offset-top) + var(--stc-marker-size));
+  }
+
+  &:last-child {
+    padding-block-end: 0;
+
+    &::after {
+      inset-block-start: 0;
+      inset-block-end: calc(100% - var(--stc-marker-offset-top));
+    }
+  }
+
+  &:first-child:last-child::after {
+    display: none;
+  }
+
+  &.is-current::before {
+    background: var(--stc-event-item-current-color);
+    border-color: var(--stc-event-item-current-color);
+    box-shadow: 0 0 0 0.25rem transparent;
+    box-shadow:
+      0 0 0 0.25rem color-mix(
+        in srgb,
+        var(--stc-event-item-current-color) 22%,
+        transparent
+      );
+  }
+}
+
+.stc-timeline-wrap--layout-left {
+  --stc-axis-x: calc(100% - (var(--stc-rail-space) / 2));
+
+  .stc-timeline__item {
+    grid-template-columns: minmax(0, 1fr) var(--stc-rail-space);
+  }
+
+  .stc-timeline__card {
+    grid-column: 1;
+    justify-self: stretch;
+  }
+}
+
+.stc-timeline-wrap--layout-right {
+  --stc-axis-x: calc(var(--stc-rail-space) / 2);
+
+  .stc-timeline__item {
+    grid-template-columns: var(--stc-rail-space) minmax(0, 1fr);
+  }
+
+  .stc-timeline__card {
+    grid-column: 2;
+    justify-self: stretch;
+  }
+}
+
+.stc-timeline-wrap--layout-alternate {
+  .stc-timeline__item:nth-child(odd) .stc-timeline__card {
+    grid-column: 3;
+    justify-self: start;
+  }
+
+  .stc-timeline__item:nth-child(even) .stc-timeline__card {
+    grid-column: 1;
+    justify-self: end;
+  }
+}
+
+.stc-timeline-wrap--compact-alternate {
+  .stc-timeline__item {
+    will-change: margin-block-start;
+  }
+}
+
+.stc-timeline-wrap--compact-alternate {
+  &.is-stc-enhanced {
+    .stc-timeline::before {
+      content: '';
+      position: absolute;
+      inset-inline-start: var(--stc-parent-rail-x, 50%);
+      inset-block-start: var(--stc-parent-rail-start);
+      block-size: calc(var(--stc-parent-rail-end) - var(--stc-parent-rail-start));
+      inline-size: var(--stc-line-width);
+      transform: translateX(-50%);
+      pointer-events: none;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        var(--stc-rail-color) 0 var(--stc-rail-dash-size),
+        transparent var(--stc-rail-dash-size) calc(var(--stc-rail-dash-size) + var(--stc-rail-dash-gap))
+      );
+      z-index: 1;
+    }
+
+    .stc-timeline__item::after {
+      display: none;
+    }
+  }
+}
+
+/*
+  Typography inheritance
+
+  Intentionally do not set font family, font size, font weight,
+  line height, letter spacing, or text color on timeline headings,
+  event titles, event dates, or event descriptions. These text
+  elements inherit the active theme's global typography by default.
+*/
+
+.stc-timeline__card {
+  position: relative;
+  z-index: 3;
+  grid-column: 3;
+  inline-size: 100%;
+  padding: var(--stc-card-padding);
+  border: 1px solid var(--stc-border);
+  border-radius: $stc-radius-card;
+  background: var(--stc-card-background-color);
+
+  .stc-timeline__date {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+  }
+
+  .stc-timeline__title {
+    margin-block-start: .5rem;
+  }
+
+  .stc-timeline__description {
+    margin-block-start: .5rem;
+  }
+
+  .stc-timeline__cta-wrap {
+    margin-block: 1rem 0;
+  }
+
+  .stc-timeline__cta {
+    &.wp-element-button {
+      text-decoration: none;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+}
+
+.stc-timeline__meta-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .75rem;
+}
+
+.stc-timeline__actions {
+  position: relative;
+  display: inline-flex;
+  margin-inline-start: auto;
+}
+
+.stc-timeline__actions-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 2rem;
+  min-block-size: 2rem;
+  padding: .25rem .45rem;
+  border: 1px solid color-mix(in srgb, currentColor 28%, transparent);
+  border-radius: .375rem;
+  background: transparent;
+  color: inherit;
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover {
+    border-color: color-mix(in srgb, currentColor 48%, transparent);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &[aria-expanded='true'] {
+    border-color: currentColor;
+  }
+}
+
+.stc-timeline__actions > .stc-timeline__actions-menu {
+  position: absolute;
+  inset-block-start: calc(100% + .25rem);
+  inset-inline-end: 0;
+  z-index: 20;
+  min-inline-size: 9rem;
+  margin: 0;
+  margin-block: 0;
+  margin-inline: 0;
+  padding: .25rem;
+  padding-inline-start: .25rem;
+  padding-left: .25rem;
+  list-style: none;
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: .5rem;
+  background: #fff;
+  color: var(--stc-text);
+  box-shadow: 0 .5rem 1.25rem rgba(0, 0, 0, .12);
+
+  &[hidden] {
+    display: none;
+  }
+
+  a {
+    display: block;
+    padding: .5rem .75rem;
+    border-radius: .35rem;
+    color: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+
+    &:hover,
+    &:focus {
+      background: color-mix(in srgb, currentColor 8%, transparent);
+      text-decoration: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--stc-accent);
+      outline-offset: -2px;
+    }
+
+    &.is-danger {
+      color: #b32d2e;
+
+      &:hover,
+      &:focus {
+        background: color-mix(in srgb, #b32d2e 10%, transparent);
+      }
+    }
+  }
+}
+
+.stc-timeline-empty {
+  padding: 1rem;
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: .5rem;
+}
+
+.stc-timeline-add-event {
+  margin-block: var(--stc-gap) 0;
+  text-align: center;
+}
+
+.stc-timeline-add-event__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .65rem 1rem;
+  border: 1px solid currentColor;
+  border-radius: .25rem;
+  background: transparent;
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+@media (max-width: $stc-mobile-breakpoint) {
+  .stc-timeline-wrap {
+    --stc-marker-size: .875rem;
+    --stc-marker-offset-top: .75rem;
+    --stc-card-padding: 1rem;
+  }
+
+  .stc-timeline__item {
+    display: block;
+    padding-inline-start: var(--stc-mobile-gutter);
+
+    &::before,
+    &::after {
+      inset-inline-start: var(--stc-mobile-axis-x);
+    }
+  }
+
+  .stc-timeline__card,
+  .stc-timeline-wrap--layout-left .stc-timeline__card,
+  .stc-timeline-wrap--layout-right .stc-timeline__card,
+  .stc-timeline-wrap--layout-alternate .stc-timeline__item:nth-child(odd) .stc-timeline__card,
+  .stc-timeline-wrap--layout-alternate .stc-timeline__item:nth-child(even) .stc-timeline__card {
+    display: block;
+    inline-size: auto;
+    max-inline-size: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .stc-timeline__item {
+    &::before {
+      border-color: CanvasText;
+      background: Canvas;
+      box-shadow: none;
+    }
+
+    &::after {
+      background: CanvasText;
+    }
+
+    &.is-current::before {
+      background: Highlight;
+      border-color: Highlight;
+      box-shadow: none;
+    }
+  }
+
+  .stc-timeline-wrap--compact-alternate.is-stc-enhanced .stc-timeline::before {
+    background: CanvasText;
+  }
+
+  .stc-timeline__actions-toggle,
+  .stc-timeline__actions > .stc-timeline__actions-menu {
+    border-color: CanvasText;
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .stc-timeline__actions > .stc-timeline__actions-menu a {
+    color: CanvasText;
+  }
+
+  .stc-timeline__actions > .stc-timeline__actions-menu a.is-danger {
+    color: Mark;
+  }
+
+  .stc-timeline__card {
+    border-color: CanvasText;
+    background: Canvas;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stc-timeline {
+    *,
+    *::before,
+    *::after {
+      @include reduced-motion-reset;
+    }
+  }
+}

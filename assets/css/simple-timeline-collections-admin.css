@@ -1,0 +1,294 @@
+/*! Simple Timeline Collections admin styles. Version 1.9.4 | Source: assets/scss/simple-timeline-collections-admin.scss */
+.stc-admin-form {
+  max-width: 48rem;
+}
+.stc-admin-form__field, .stc-admin-form__checkbox {
+  margin: 1rem 0;
+}
+.stc-admin-form__field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+.stc-admin-form__field input[type=date],
+.stc-admin-form__field input[type=url],
+.stc-admin-form__field input[type=text],
+.stc-admin-form__field textarea {
+  width: 100%;
+  max-width: 42rem;
+}
+.stc-admin-form__field textarea {
+  min-height: 10rem;
+}
+.stc-admin-form__fieldset {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border: 1px solid #c3c4c7;
+  border-radius: 4px;
+}
+.stc-admin-form__fieldset h3 {
+  margin-top: 0;
+}
+.stc-admin-form .required {
+  color: #b32d2e;
+}
+
+.stc-settings-page {
+  max-width: 56rem;
+}
+.stc-settings-page__intro {
+  max-width: 48rem;
+}
+
+.stc-settings-card {
+  margin-top: 1rem;
+  padding: 1.25rem;
+  border: 1px solid #c3c4c7;
+  border-radius: 4px;
+  background: #fff;
+}
+.stc-settings-card h2:first-child {
+  margin-top: 0;
+}
+.stc-settings-card code {
+  display: inline-block;
+  margin: 0.25rem 0 1rem;
+  padding: 0.35rem 0.5rem;
+}
+.stc-settings-card--secondary {
+  background: #f6f7f7;
+}
+
+.stc-settings-radio-group {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+}
+.stc-settings-radio-group--inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+}
+
+.stc-settings-radio-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  max-width: 36rem;
+}
+
+.stc-admin-form__field select {
+  width: 100%;
+  max-width: 42rem;
+}
+
+.stc-admin-event-list {
+  margin-block: 0.5rem 1rem;
+}
+.stc-admin-event-list li {
+  margin-block-end: 0.35rem;
+}
+
+.stc-color-controls {
+  display: grid;
+  gap: .75rem;
+}
+
+.stc-color-controls__field {
+  margin-block: .5rem 0;
+}
+
+.stc-color-controls input[type="text"] {
+  max-width: 10rem;
+}
+
+
+.stc-color-control-shell {
+  display: grid;
+  gap: 1rem;
+}
+
+.stc-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1rem;
+}
+
+.stc-preview-card {
+  padding: 1.25rem;
+  border: 1px solid #d5dce3;
+  border-radius: 1rem;
+  background: #f8fafb;
+}
+
+.stc-preview-card h4 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.stc-preview-card__footer {
+  margin-top: 1rem;
+}
+
+.stc-preview-card__footer strong {
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.stc-preview-card__footer .description {
+  margin: 0;
+}
+
+.stc-preview-color-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.stc-preview-color-row__title {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.stc-preview-color-row .description {
+  margin: 0.5rem 0 0;
+}
+
+.stc-preview-color-chip {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.875rem;
+  border: 1px solid #d5dce3;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.stc-preview-color-chip__swatch {
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  border-radius: 2px;
+  border: 1px solid #b8c2cc;
+  background: #2d7b83;
+}
+
+.stc-preview-color-chip__swatch--light {
+  box-shadow: inset 0 0 0 1px #b8c2cc;
+}
+
+.stc-preview-color-chip__value {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.stc-preview-color-chip__token {
+  color: #557a84;
+  overflow-wrap: anywhere;
+}
+
+.stc-selector-map {
+  --stc-preview-before: #2d7b83;
+  --stc-preview-current: #1a545b;
+  --stc-preview-card-bg: #ffffff;
+  --stc-preview-rail: #b5c2ce;
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.stc-selector-map__rail {
+  position: relative;
+  min-block-size: 17rem;
+}
+
+.stc-selector-map__rail::before {
+  content: "";
+  position: absolute;
+  inset-block: 0.35rem 0.35rem;
+  inset-inline-start: 50%;
+  border-inline-start: 3px dashed var(--stc-preview-rail);
+  transform: translateX(-50%);
+}
+
+.stc-selector-map__marker {
+  position: absolute;
+  inset-inline-start: 50%;
+  inline-size: 1.1rem;
+  block-size: 1.1rem;
+  border-radius: 999px;
+  border: 4px solid #d8edf0;
+  transform: translateX(-50%);
+}
+
+.stc-selector-map__marker--before {
+  inset-block-start: 0.25rem;
+  background: var(--stc-preview-before);
+}
+
+.stc-selector-map__marker--card {
+  inset-block-start: 6.25rem;
+  background: var(--stc-preview-before);
+}
+
+.stc-selector-map__marker--current {
+  inset-block-start: 12.5rem;
+  background: var(--stc-preview-current);
+}
+
+.stc-selector-map__cards {
+  display: grid;
+  gap: 2rem;
+}
+
+.stc-selector-card {
+  padding: 1rem 1.125rem;
+  border: 1px solid #d5dce3;
+  border-radius: 0.9rem;
+  background: #fff;
+}
+
+.stc-selector-card strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 1rem;
+}
+
+.stc-selector-card code {
+  color: #557a84;
+}
+
+.stc-selector-card--card {
+  background: var(--stc-preview-card-bg, #fff);
+}
+
+@media (max-width: 960px) {
+  .stc-preview-color-chip {
+    grid-template-columns: auto 1fr;
+  }
+
+  .stc-preview-color-chip__token {
+    grid-column: 1/-1;
+  }
+}
+
+.stc-admin-form__subfield {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #dcdcde;
+}
+
+.stc-admin-form__subfield h4 {
+  margin: 0 0 0.75rem;
+}
+
+.stc-inline-number-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stc-inline-number-field input[type=number] {
+  inline-size: 7rem;
+}
